@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">KayuAksara Craft - Seni Kerajinan Tangan Kayu & Kriya Eksklusif</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .chat-animate { animation: slideUp 0.25s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+
+    <!-- =====================================================================
+         PENGATURAN UTAMA TEMPLATE HANDICRAFT (Ubah sesuai data klien)
+         ===================================================================== -->
+    <script>
+        const SITE_CONFIG = {
+            brandName: "KayuAksara Craft",
+            tagline: "Sentuhan Seni Kayu & Kriya Bernyawa Eksklusif",
+            subTagline: "Setiap karya dibuat secara handmade dengan ketelitian tinggi oleh perajin lokal pilihan untuk memperindah ruang dan gaya hidup Anda.",
+            whatsappNumber: "6281234567890", // Format 628xxx
+            whatsappDefaultMsg: "Halo KayuAksara Craft, saya tertarik untuk memesan kerajinan custom.",
+            address: "Jl. Prawirotaman No. 12, Yogyakarta",
+            googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.893123456789!2d110.364!3d-7.812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDgnNDMuMiJTIDExMMKwMjInNTAnNCJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid",
+            
+            // KATALOG PRODUK HANDICRAFT (STABIL & AMAN)
+            products: [
+                { id: 1, name: "Jam Tangan Kayu Jati Custom", category: "Aksesoris", price: "Rp 450.000", tag: "Best Seller", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80", desc: "Dibuat dari kayu jati perhutani pilihan dengan tali kulit asli." },
+                { id: 2, name: "Tampah Anyaman Bambu Tradisional", category: "Home Decor", price: "Rp 45.000", tag: "Ready Stock", image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80", desc: "Dibuat dari bambu pilihan yang dianyam rapat dan kuat, cocok untuk dekorasi atau wadah tradisional." },
+                { id: 3, name: "Lampu Tidur Estetik Kayu Pinus", category: "Home Decor", price: "Rp 230.000", tag: "Trending", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80", desc: "Memancarkan cahaya hangat yang menenangkan untuk kamar tidur." },
+                { id: 4, name: "Kotak Perhiasan Ukir Tradisional", category: "Souvenir", price: "Rp 290.000", tag: "Limited", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Detail ukiran tangan langsung oleh maestro ukir lokal." },
+                { id: 5, name: "Tas Kulit Kombinasi Tenun", category: "Aksesoris", price: "Rp 550.000", tag: "Custom Order", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80", desc: "Perpaduan kulit sapi nabati dengan kain tenun etnik Nusantara." },
+                { id: 6, name: "Asbak Kayu Unik Serat Alami", category: "Home Decor", price: "Rp 95.000", tag: "Ready Stock", image: "https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=600&q=80", desc: "Menonjolkan corak serat kayu asli yang tidak ada duanya." }
+            ],
+
+            // PENGATURAN CHATBOT HANDICRAFT
+            botName: "Asisten KayuAksara",
+            botWelcome: "Halo! 👋 Selamat datang di KayuAksara Craft. Ada kerajinan tangan atau pesanan custom yang ingin Anda diskusikan?",
+            botQuickReplies: ["Cara Pesan Custom", "Estimasi Waktu Pengerjaan", "Jenis Kayu & Bahan", "Kunjungi Workshop"],
+            botKnowledgeBase: [
+                {
+                    keywords: ["custom", "pesan", "khusus", "nama", "desain"],
+                    answer: "Tentu! Kami menerima pesanan custom ukuran, bentuk, hingga grafir nama/logo di produk. Silakan kirim contoh desain via WhatsApp!"
+                },
+                {
+                    keywords: ["waktu", "pengerjaan", "lama", "hari", "proses"],
+                    answer: "Waktu pengerjaan standar berkisar antara 3 hingga 7 hari kerja tergantung tingkat kerumitan produk."
+                },
+                {
+                    keywords: ["kayu", "bahan", "material", "kualitas"],
+                    answer: "Kami menggunakan kayu pilihan berkualitas tinggi seperti Kayu Jati, Mahoni, dan Pinus perhutani yang sudah melalui proses oven anti-rayap."
+                },
+                {
+                    keywords: ["lokasi", "alamat", "workshop", "toko"],
+                    answer: "Workshop dan galeri offline kami berlokasi di Jl. Prawirotaman No. 12, Yogyakarta. Silakan mampir!"
+                }
+            ]
+        };
+    </script>
+
+    <!-- NAVBAR DENGAN FLASH LAMP -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand & Flash Lamp -->
+                <div class="flex items-center gap-2.5">
+                    <span id="nav-brand" class="font-extrabold text-xl tracking-wider uppercase text-stone-800">KayuAksara</span>
+                    <!-- Flash Lamp / Indikator Aktif Smooth -->
+                    <span class="relative flex h-2.5 w-2.5" title="Workshop Buka & Siap Order Custom">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-600">
+                    <a href="#katalog" class="hover:text-stone-900 transition">Koleksi Kriya</a>
+                    <a href="#cerita" class="hover:text-stone-900 transition">Kisah Perajin</a>
+                    <a href="#lokasi" class="hover:text-stone-900 transition">Workshop</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a id="nav-cta" href="#" target="_blank" class="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-sm transition">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>Konsultasi Custom</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden bg-stone-200/50 py-24 sm:py-32">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block text-xs font-bold uppercase tracking-widest text-stone-600 bg-stone-300/70 px-3.5 py-1.5 rounded-full mb-4">100% Handmade Lokal</span>
+            <h1 id="hero-title" class="text-4xl sm:text-6xl font-extrabold text-stone-950 tracking-tight max-w-3xl mx-auto leading-tight">
+                Sentuhan Seni Kayu & Kriya Bernyawa Eksklusif
+            </h1>
+            <p id="hero-subtitle" class="mt-6 text-base sm:text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                Setiap karya dibuat secara handmade dengan ketelitian tinggi oleh perajin lokal pilihan untuk memperindah ruang dan gaya hidup Anda.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#katalog" class="inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 text-white font-semibold px-8 py-4 rounded-xl shadow-md transition">
+                    <span>Jelajahi Koleksi</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+                <button onclick="toggleChat(true)" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 font-semibold px-8 py-4 rounded-xl shadow-sm transition">
+                    <i data-lucide="bot" class="w-4 h-4 text-stone-700"></i>
+                    <span>Tanya Konsultasi Custom</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- KATALOG PRODUK SECTION -->
+    <section id="katalog" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900">Koleksi Kriya Pilihan</h2>
+                    <p class="text-sm text-stone-500 mt-1">Pilih karya favoritmu atau request model custom sesuai selera.</p>
+                </div>
+                <!-- Filter Kategori -->
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <button onclick="renderProducts('Semua')" id="btn-semua" class="filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-stone-900 text-white transition">Semua</button>
+                </div>
+            </div>
+
+            <!-- Grid Produk -->
+            <div id="product-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- ARTISAN STORY / KISAH PERAJIN -->
+    <section id="cerita" class="py-20 bg-stone-100/60 border-t border-stone-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Nilai Seni di Setiap Goresan</h2>
+            <p class="text-stone-600 leading-relaxed max-w-2xl mx-auto mb-12 text-sm sm:text-base">Kami percaya bahwa benda buatan tangan memiliki jiwa dan karakter unik yang tidak bisa ditiru oleh mesin pabrik.</p>
+            <div class="grid sm:grid-cols-3 gap-6 text-left">
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <i data-lucide="hammer" class="w-8 h-8 text-stone-800 mb-3"></i>
+                    <h4 class="font-bold text-stone-900 text-sm">Murni Handmade</h4>
+                    <p class="text-xs text-stone-500 mt-1">Dikerjakan manual dengan ketelitian tinggi oleh pengrajin berpengalaman.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-stone-800 mb-3"></i>
+                    <h4 class="font-bold text-stone-900 text-sm">Bisa Custom Desain</h4>
+                    <p class="text-xs text-stone-500 mt-1">Wujudkan ide bentuk atau ukiran nama impian Anda bersama kami.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <i data-lucide="leaf" class="w-8 h-8 text-stone-800 mb-3"></i>
+                    <h4 class="font-bold text-stone-900 text-sm">Ramah Lingkungan</h4>
+                    <p class="text-xs text-stone-500 mt-1">Memanfaatkan sisa kayu legal dan bahan finishing aman kesehatan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GOOGLE MAPS & WORKSHOP -->
+    <section id="lokasi" class="py-20 bg-white border-t border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-stone-900">Kunjungi Workshop Kami</h2>
+                <p class="mt-2 text-sm text-stone-500">Ingin melihat proses pembuatannya langsung? Mari mampir ke galeri kami.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-stone-200 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5 text-stone-800"></i></div>
+                        <div>
+                            <h4 class="font-bold text-stone-900 text-sm">Alamat Galeri</h4>
+                            <p id="info-address" class="text-xs text-stone-600 mt-1 leading-relaxed">Jl. Prawirotaman No. 12, Yogyakarta</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-stone-200 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5 text-stone-800"></i></div>
+                        <div>
+                            <h4 class="font-bold text-stone-900 text-sm">Jam Operasional</h4>
+                            <p class="text-xs text-stone-600 mt-1">Senin - Sabtu: 09.00 - 17.00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 h-72 sm:h-80 rounded-2xl overflow-hidden border border-stone-200 shadow-sm">
+                    <iframe id="google-map-iframe" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 text-stone-400 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span id="footer-brand" class="font-bold text-lg text-white uppercase tracking-wider">KayuAksara Craft</span>
+                <p id="footer-address" class="text-xs text-stone-400 mt-1">Jl. Prawirotaman No. 12, Yogyakarta</p>
+            </div>
+            <div class="text-xs text-stone-500">
+                &copy; <span id="year"></span> <span id="footer-copy">KayuAksara Craft</span>. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WIDGET CHATBOT MELAYANG -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <div id="chat-window" class="hidden mb-3 w-[340px] sm:w-[370px] bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex-col chat-animate">
+            <div class="bg-stone-900 text-white px-4 py-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                    <div>
+                        <h4 id="chat-bot-name" class="font-bold text-xs leading-tight">Asisten KayuAksara</h4>
+                        <span class="text-[10px] text-stone-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> Workshop Buka</span>
+                    </div>
+                </div>
+                <button onclick="toggleChat(false)" class="p-1.5 rounded-lg hover:bg-white/10 transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <div id="chat-messages" class="p-4 h-72 overflow-y-auto space-y-3 bg-stone-50 text-xs sm:text-sm"></div>
+            <div id="chat-quick-replies" class="px-3 py-2 bg-white border-t border-stone-100 flex gap-1.5 overflow-x-auto"></div>
+            <form onsubmit="handleChatSubmit(event)" class="p-2.5 bg-white border-t border-stone-200 flex items-center gap-2">
+                <input type="text" id="chat-input" placeholder="Tanya custom atau bahan..." autocomplete="off" class="flex-1 text-xs sm:text-sm px-3.5 py-2 rounded-xl bg-stone-100 focus:outline-none focus:ring-2 focus:ring-stone-900">
+                <button type="submit" class="bg-stone-900 text-white p-2.5 rounded-xl transition"><i data-lucide="send" class="w-4 h-4"></i></button>
+            </form>
+        </div>
+        <button onclick="toggleChat()" class="flex items-center gap-2.5 bg-stone-900 hover:bg-stone-800 text-white px-4 py-3.5 rounded-full shadow-lg transition-all hover:scale-105">
+            <i data-lucide="message-square-text" class="w-5 h-5"></i>
+            <span class="text-xs sm:text-sm font-semibold pr-1">Tanya Kriya</span>
+        </button>
+    </div>
+
+    <!-- LOGIKA JAVASCRIPT -->
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('page-title').textContent = `${SITE_CONFIG.brandName} - ${SITE_CONFIG.tagline}`;
+        document.getElementById('nav-brand').textContent = SITE_CONFIG.brandName;
+        document.getElementById('hero-title').textContent = SITE_CONFIG.tagline;
+        document.getElementById('hero-subtitle').textContent = SITE_CONFIG.subTagline;
+        document.getElementById('footer-brand').textContent = SITE_CONFIG.brandName;
+        document.getElementById('footer-copy').textContent = SITE_CONFIG.brandName;
+        document.getElementById('footer-address').textContent = SITE_CONFIG.address;
+        document.getElementById('info-address').textContent = SITE_CONFIG.address;
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById('chat-bot-name').textContent = SITE_CONFIG.botName;
+        document.getElementById('google-map-iframe').src = SITE_CONFIG.googleMapsEmbedUrl;
+
+        const waBaseUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=`;
+        document.getElementById('nav-cta').href = waBaseUrl + encodeURIComponent(SITE_CONFIG.whatsappDefaultMsg);
+
+        // Render Produk & Filter
+        function renderProducts(filter = 'Semua') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.className = 'filter-btn text-xs font-semibold px-4 py-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 transition';
+            });
+            
+            if (filter === 'Semua') {
+                document.getElementById('btn-semua').className = 'filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-stone-900 text-white transition';
+            } else {
+                event && event.target && (event.target.className = 'filter-btn active text-xs font-semibold px-4 py-2 rounded-full bg-stone-900 text-white transition');
+            }
+
+            const filtered = filter === 'Semua' 
+                ? SITE_CONFIG.products 
+                : SITE_CONFIG.products.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition group flex flex-col justify-between';
+                
+                const waProductMsg = `Halo ${SITE_CONFIG.brandName}, saya tertarik untuk memesan/konsultasi produk:\n\n*${p.name}* (${p.category})\nHarga: ${p.price}\n\nApakah bisa custom ukuran/desain?`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-64 overflow-hidden bg-stone-100 relative">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-stone-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">${p.tag}</span>
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-5">
+                            <span class="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">${p.category}</span>
+                            <h3 class="font-bold text-stone-900 mt-1 text-base">${p.name}</h3>
+                            <p class="text-xs text-stone-500 mt-1.5 leading-relaxed">${p.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between mt-4">
+                        <span class="font-extrabold text-stone-900 text-base">${p.price}</span>
+                        <a href="${waBaseUrl + encodeURIComponent(waProductMsg)}" target="_blank" class="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl transition">
+                            <i data-lucide="hammer" class="w-3.5 h-3.5"></i>
+                            <span>Pesan Custom</span>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Setup Kategori Filter Dinamis Handicraft
+        const categories = [...new Set(SITE_CONFIG.products.map(p => p.category))];
+        const filterContainer = document.getElementById('category-filters');
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'filter-btn text-xs font-semibold px-4 py-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 transition';
+            btn.textContent = cat;
+            btn.onclick = () => renderProducts(cat);
+            filterContainer.appendChild(btn);
+        });
+        renderProducts('Semua');
+
+        // Chatbot Logic Handicraft (Clear saat ditutup)
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatQuickReplies = document.getElementById('chat-quick-replies');
+        const chatInput = document.getElementById('chat-input');
+        let isChatInitialized = false;
+
+        function toggleChat(forceState) {
+            const isHidden = chatWindow.classList.contains('hidden');
+            const shouldOpen = forceState !== undefined ? forceState : isHidden;
+            if (shouldOpen) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex');
+                if (!isChatInitialized) { initChat(); isChatInitialized = true; }
+                chatInput.focus();
+            } else {
+                chatWindow.classList.add('hidden');
+                chatWindow.classList.remove('flex');
+                chatMessages.innerHTML = '';
+                chatQuickReplies.innerHTML = '';
+                isChatInitialized = false;
+            }
+        }
+
+        function initChat() {
+            appendMessage('bot', SITE_CONFIG.botWelcome);
+            SITE_CONFIG.botQuickReplies.forEach(text => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'whitespace-nowrap text-xs font-semibold px-3 py-1.5 rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 transition';
+                btn.textContent = text;
+                btn.onclick = () => processUserMessage(text);
+                chatQuickReplies.appendChild(btn);
+            });
+        }
+
+        function appendMessage(sender, text, includeWa = false) {
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user' ? 'bg-stone-900 text-white px-3.5 py-2.5 rounded-2xl rounded-br-sm max-w-[82%] whitespace-pre-line shadow-sm' : 'bg-stone-100 text-stone-800 px-3.5 py-2.5 rounded-2xl rounded-bl-sm max-w-[85%] whitespace-pre-line border border-stone-200/60 shadow-sm';
+            bubble.textContent = text;
+            if (includeWa) {
+                const waBtn = document.createElement('a');
+                waBtn.href = waBaseUrl + encodeURIComponent("Halo admin, saya ingin berkonsultasi mengenai pemesanan kerajinan tangan custom.");
+                waBtn.target = '_blank';
+                waBtn.className = 'mt-2 inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition w-full';
+                waBtn.textContent = 'Hubungi Admin via WhatsApp';
+                bubble.appendChild(document.createElement('br'));
+                bubble.appendChild(waBtn);
+            }
+            wrapper.appendChild(bubble);
+            chatMessages.appendChild(wrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatInput.value = '';
+            processUserMessage(text);
+        }
+
+        function processUserMessage(userText) {
+            appendMessage('user', userText);
+            setTimeout(() => {
+                const query = userText.toLowerCase();
+                let found = SITE_CONFIG.botKnowledgeBase.find(item => item.keywords.some(k => query.includes(k)));
+                if (found) {
+                    appendMessage('bot', found.answer);
+                } else {
+                    appendMessage('bot', "Untuk konsultasi desain custom dan detail pemesanan khusus, silakan terhubung langsung dengan tim perajin kami:", true);
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>
